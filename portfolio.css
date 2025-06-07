@@ -1,0 +1,492 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-top: 120px;
+}
+
+/* === STYLES NAVBAR NUAGES === */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.8) 0%, rgba(240, 248, 255, 0.9) 30%, rgba(245, 245, 245, 0.85) 70%, rgba(255, 255, 255, 0.8) 100%);
+    backdrop-filter: blur(10px);
+    z-index: 9999;
+    padding: 20px 0;
+    border-radius: 0 0 50px 50px;
+    box-shadow: 0 8px 32px rgba(135, 206, 235, 0.3), 
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+    transition: all 0.4s ease;
+    overflow: hidden;
+}
+
+/* Effet nuages flottants */
+.navbar::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -50px;
+    width: 150px;
+    height: 80px;
+    background: radial-gradient(ellipse, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float1 6s ease-in-out infinite;
+}
+
+.navbar::after {
+    content: '';
+    position: absolute;
+    top: -15px;
+    right: -30px;
+    width: 120px;
+    height: 60px;
+    background: radial-gradient(ellipse, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50%;
+    animation: float2 8s ease-in-out infinite reverse;
+}
+
+@keyframes float1 {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    33% { transform: translateX(20px) translateY(-5px); }
+    66% { transform: translateX(-10px) translateY(3px); }
+}
+
+@keyframes float2 {
+    0%, 100% { transform: translateX(0) translateY(0); }
+    50% { transform: translateX(-25px) translateY(-8px); }
+}
+
+.navbar.scrolled {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.95) 30%, rgba(245, 245, 245, 0.9) 70%, rgba(255, 255, 255, 0.9) 100%);
+    box-shadow: 0 12px 40px rgba(135, 206, 235, 0.4), 
+                inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    border-radius: 0 0 60px 60px;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #4682B4;
+    text-decoration: none;
+    text-shadow: 2px 2px 6px rgba(255, 255, 255, 0.8), 
+                 0 0 20px rgba(135, 206, 235, 0.5);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-logo:hover {
+    color: #5F9EA0;
+    transform: scale(1.05);
+    text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.9), 
+                 0 0 25px rgba(135, 206, 235, 0.7);
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 15px;
+    position: relative;
+    z-index: 10;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #4682B4;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 50px;
+    transition: all 0.4s ease;
+    position: relative;
+    text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.3);
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    box-shadow: 0 4px 15px rgba(135, 206, 235, 0.2), 
+                inset 0 1px 2px rgba(255, 255, 255, 0.8);
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
+    border-radius: 50px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.nav-link:hover {
+    color: #2E8B57;
+    background: rgba(255, 255, 255, 0.6);
+    border: 2px solid rgba(255, 255, 255, 0.8);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(135, 206, 235, 0.4), 
+                inset 0 2px 4px rgba(255, 255, 255, 0.9);
+    text-shadow: 1px 1px 4px rgba(255, 255, 255, 0.9);
+}
+
+.nav-link:hover::before {
+    opacity: 1;
+}
+
+.nav-link.active {
+    color: white;
+    background: linear-gradient(135deg, #87CEEB, #5F9EA0);
+    border: 2px solid rgba(255, 255, 255, 0.9);
+    box-shadow: 0 6px 25px rgba(135, 206, 235, 0.5), 
+                inset 0 2px 4px rgba(255, 255, 255, 0.3);
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Menu hamburger pour mobile */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 9999;
+    position: relative;
+}
+
+.hamburger span {
+    width: 30px;
+    height: 3px;
+    background: #4682B4;
+    margin: 4px 0;
+    transition: 0.3s;
+    border-radius: 2px;
+    box-shadow: 0 1px 3px rgba(255, 255, 255, 0.8);
+}
+
+.hamburger.active span:nth-child(1) {
+    transform: rotate(-45deg) translate(-5px, 6px);
+}
+
+.hamburger.active span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+    transform: rotate(45deg) translate(-5px, -6px);
+}
+
+/* Effet de parallaxe montagne */
+.mountain-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(to bottom, 
+        #87CEEB 0%, 
+        #98D8E8 30%, 
+        #5F9EA0 60%, 
+        #2F4F4F 80%, 
+        #1C1C1C 100%);
+}
+
+.mountains {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 60%;
+    background: linear-gradient(to right, 
+        transparent 0%, 
+        rgba(47, 79, 79, 0.3) 20%, 
+        rgba(47, 79, 79, 0.6) 40%, 
+        rgba(47, 79, 79, 0.8) 60%, 
+        rgba(47, 79, 79, 0.6) 80%, 
+        transparent 100%);
+    clip-path: polygon(0 100%, 15% 60%, 30% 80%, 45% 40%, 60% 70%, 75% 30%, 90% 65%, 100% 45%, 100% 100%);
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+}
+
+/* Header avec titre principal */
+.header {
+    text-align: center;
+    margin-bottom: 60px;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.header h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.header p {
+    font-size: 1.3rem;
+    opacity: 0.9;
+}
+
+/* Structure du panneau de randonnée */
+.trail-post {
+    position: relative;
+    margin: 40px auto;
+    scroll-margin-top: 120px;
+}
+
+/* Poteau central */
+.post {
+    width: 12px;
+    height: 100%;
+    background: linear-gradient(to bottom, #8B4513, #A0522D);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 6px;
+    box-shadow: 4px 0 8px rgba(0,0,0,0.3);
+}
+
+/* Panneaux directionnels */
+.direction-panel {
+    position: relative;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
+    animation: slideIn 0.8s ease-out;
+}
+
+.direction-panel:nth-child(even) {
+    animation-delay: 0.2s;
+}
+
+.direction-panel:nth-child(odd) {
+    animation-delay: 0.4s;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Panneaux verts (sections principales) */
+.main-panel {
+    background: linear-gradient(135deg, #2E8B57, #3CB371);
+    color: white;
+    padding: 20px 40px;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+    border: 3px solid #228B22;
+    position: relative;
+    min-width: 350px;
+    text-align: center;
+    transform: perspective(1000px) rotateX(5deg);
+    transition: all 0.3s ease;
+}
+
+.main-panel:hover {
+    transform: perspective(1000px) rotateX(0deg) translateY(-5px);
+    box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+}
+
+.main-panel::before {
+    content: '';
+    position: absolute;
+    left: -10px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 15px solid transparent;
+    border-bottom: 15px solid transparent;
+    border-right: 10px solid #228B22;
+}
+
+.main-panel h2 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Sous-panneaux roses */
+.sub-panels {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-top: 25px;
+}
+
+.sub-panel {
+    background: linear-gradient(135deg, #FFB6C1, #FF69B4);
+    color: #2C1810;
+    padding: 15px 30px;
+    border-radius: 6px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    border: 2px solid #FF1493;
+    min-width: 280px;
+    text-align: left;
+    position: relative;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.sub-panel:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+}
+
+.sub-panel::before {
+    content: '';
+    position: absolute;
+    left: -8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 8px solid #FF1493;
+}
+
+.sub-panel h3 {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+    color: #8B0000;
+}
+
+.sub-panel p {
+    font-size: 0.95rem;
+    line-height: 1.4;
+}
+
+/* Sections spécifiques */
+.about-section {
+    margin-bottom: 60px;
+}
+
+.projects-section {
+    margin-bottom: 60px;
+}
+
+.skills-section {
+    margin-bottom: 60px;
+}
+
+.contact-section {
+    margin-bottom: 40px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+img {
+    width: 30px;
+    height: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    body {
+        padding-top: 100px;
+    }
+
+    .header h1 {
+        font-size: 2.5rem;
+    }
+    
+    .main-panel, .sub-panel {
+        min-width: auto;
+        width: 90%;
+    }
+    
+    .direction-panel {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    /* Navbar mobile */
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 90px;
+        flex-direction: column;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.98) 50%, rgba(245, 245, 245, 0.95) 100%);
+        backdrop-filter: blur(15px);
+        width: 100%;
+        text-align: center;
+        transition: left 0.4s ease;
+        box-shadow: 0 15px 35px rgba(135, 206, 235, 0.4);
+        border-radius: 0 0 30px 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.8);
+        padding: 30px 0;
+        gap: 10px;
+        z-index: 10000; /* CHANGÉ : était 9998 */
+        max-height: 70vh; /* CHANGÉ : était height: calc(100vh - 90px) */
+        overflow-y: auto;
+        /* AJOUTÉ : */
+        opacity: 0;
+        visibility: hidden;
+    }
+
+    .nav-menu.active {
+        left: 0;
+        /* AJOUTÉ : */
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* MODIFIEZ aussi cette section : */
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+        padding: 10px;
+        z-index: 10001; /* CHANGÉ : était juste "z-index: 9999" */
+        position: relative;
+    }
+
+    .nav-menu li {
+        margin: 10px 0;
+    }
+
+    .nav-link {
+        padding: 15px 25px;
+        display: block;
+        border-radius: 25px;
+        margin: 5px 20px;
+        background: rgba(255, 255, 255, 0.4);
+        border: 2px solid rgba(255, 255, 255, 0.6);
+    }
+}
